@@ -19,8 +19,10 @@ const getBaseRef = async (head /*:string*/ = 'HEAD') => {
     const { GITHUB_BASE_REF } = process.env;
     if (GITHUB_BASE_REF) {
         if (GITHUB_BASE_REF.startsWith('refs/')) {
+            // this is already fully qualified
             return GITHUB_BASE_REF;
         } else {
+            // Otherwise, github gives us an unqualified branch name
             return `refs/remotes/origin/${GITHUB_BASE_REF}`;
         }
     } else {
