@@ -39,31 +39,38 @@ const getBaseRef = async (head /*:string*/ = 'HEAD') => {
         });
         headRef = headRef.trim();
         for (let i = 1; i < 100; i++) {
-            const stdout = execSync(
-                `git branch --contains ${head}~${i} --format='%(refname)'`,
-                { encoding: 'utf8' },
-            );
-            let lines = stdout.split('\n').filter(Boolean);
-            lines = lines.filter((line) => line !== `refs/heads/${headRef}`);
+            try {
+                const stdout = execSync(
+                    `git branch --contains ${head}~${i} --format='%(refname)'`,
+                    { encoding: 'utf8' },
+                );
+                let lines = stdout.split('\n').filter(Boolean);
+                lines = lines.filter(
+                    (line) => line !== `refs/heads/${headRef}`,
+                );
 
-            // Note (Lilli): When running our actions locally, we want to be a little more
-            // aggressive in choosing a baseRef, going back to a shared commit on only `develop`,
-            // `master`, feature or release branches, so that we can cover more commits. In case,
-            // say, I create a bunch of experimental, first-attempt, throw-away branches that
-            // share commits higher in my stack...
-            for (const line of lines) {
-                if (
-                    line === 'refs/heads/develop' ||
-                    line === 'refs/heads/master' ||
-                    line.startsWith('refs/heads/feature/') ||
-                    line.startsWith('refs/heads/release/')
-                ) {
-                    return line;
+                // Note (Lilli): When running our actions locally, we want to be a little more
+                // aggressive in choosing a baseRef, going back to a shared commit on only `develop`,
+                // `master`, feature or release branches, so that we can cover more commits. In case,
+                // say, I create a bunch of experimental, first-attempt, throw-away branches that
+                // share commits higher in my stack...
+                for (const line of lines) {
+                    if (
+                        line === 'refs/heads/develop' ||
+                        line === 'refs/heads/master' ||
+                        line.startsWith('refs/heads/feature/') ||
+                        line.startsWith('refs/heads/release/')
+                    ) {
+                        return line;
+                    }
                 }
+            } catch {
+                // Ran out of history, probably
+                return null;
             }
         }
-        // If all else fails, just use upstream
-        return `${head}@{upstream}`;
+        // We couldn't find it
+        return null;
     }
 };
 
