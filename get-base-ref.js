@@ -26,6 +26,7 @@ const getBaseRef = async (head /*:string*/ = 'HEAD') => {
     } else {
         let upstream = execSync(
             `git rev-parse --abbrev-ref '${head}@{upstream}'`,
+            { encoding: 'utf8' },
         );
         upstream = upstream.trim();
 
@@ -33,11 +34,14 @@ const getBaseRef = async (head /*:string*/ = 'HEAD') => {
         if (upstream && !upstream.trim().startsWith('origin/')) {
             return `refs/heads/${upstream}`;
         }
-        let headRef = execSync(`git rev-parse --abbrev-ref ${head}`);
+        let headRef = execSync(`git rev-parse --abbrev-ref ${head}`, {
+            encoding: 'utf8',
+        });
         headRef = headRef.trim();
         for (let i = 1; i < 100; i++) {
             const stdout = execSync(
                 `git branch --contains ${head}~${i} --format='%(refname)'`,
+                { encoding: 'utf8' },
             );
             let lines = stdout.split('\n').filter(Boolean);
             lines = lines.filter((line) => line !== `refs/heads/${headRef}`);
