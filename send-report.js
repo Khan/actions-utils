@@ -11,7 +11,7 @@
  * the GITHUB_TOKEN env variable.
  */
 
-const {GITHUB_TOKEN, GITHUB_WORKSPACE} = process.env;
+const { GITHUB_TOKEN, GITHUB_WORKSPACE } = process.env;
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -116,8 +116,8 @@ const githubReport = async (
     messages /*: Array<Message>*/,
 ) => {
     /* flow-uncovered-block */
-    const {GitHub, context} = require('@actions/github');
-    const {owner, repo} /*: {owner: string, repo: string}*/ = context.repo;
+    const { GitHub, context } = require('@actions/github');
+    const { owner, repo } /*: {owner: string, repo: string}*/ = context.repo;
     const client = new GitHub(token, {});
     const headSha = context.payload.pull_request.head.sha;
     const check = await client.checks.create({
@@ -175,6 +175,8 @@ const makeReport = (title /*: string*/, messages /*: Array<Message>*/) => {
     }
     if (GITHUB_TOKEN) {
         return githubReport(title, GITHUB_TOKEN, messages);
+    } else if (process.env.JSON_REPORT) {
+        console.log(`::json-report::${title}::${JSON.stringify(messages)}`);
     } else {
         return localReport(title, messages);
     }
