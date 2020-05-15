@@ -8,6 +8,7 @@
     "dependencies": {
         "@actions/github": "^2.1.1",
         "chalk": "^4.0.0",
-        "cli-highlight": "^2.1.4"
+        "cli-highlight": "^2.1.4",
+        "minimatch": "^3.0.4"
     }
 }
