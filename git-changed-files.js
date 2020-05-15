@@ -20,7 +20,7 @@ const getIgnoredPatterns = (fileContents) => {
             const [pattern, ...attributes] = line.trim().split(' ');
             if (
                 attributes.includes('binary') ||
-                attributes.inludes('linguist-generated=true')
+                attributes.includes('linguist-generated=true')
             ) {
                 return pattern;
             }
