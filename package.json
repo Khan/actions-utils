@@ -5,10 +5,17 @@
     "repository": "git@github.com:Khan/actions-utils.git",
     "author": "Jared Forsyth <jared@jaredforsyth.com>",
     "license": "MIT",
+    "scripts": {
+        "test": "jest"
+    },
     "dependencies": {
         "@actions/github": "^2.1.1",
         "chalk": "^4.0.0",
         "cli-highlight": "^2.1.4",
         "minimatch": "^3.0.4"
+    },
+    "devDependencies": {
+        "jest": "^26.0.1",
+        "flow-bin": "^0.125.1"
     }
 }
