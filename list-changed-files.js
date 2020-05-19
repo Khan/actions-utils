@@ -9,8 +9,8 @@
 // $FlowFixMe: shhhhh
 require('@babel/register'); // flow-uncovered-line
 
-const getBaseRef = require('./lib/get-base-ref');
-const gitChangedFiles = require('./lib/git-changed-files');
+const getBaseRef = require('./get-base-ref');
+const gitChangedFiles = require('./git-changed-files');
 
 const run = async () => {
     const files = await gitChangedFiles(await getBaseRef(), '.');
