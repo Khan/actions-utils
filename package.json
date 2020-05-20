@@ -6,6 +6,9 @@
     "author": "Jared Forsyth <jared@jaredforsyth.com>",
     "license": "MIT",
     "scripts": {
+        "format": "prettier-eslint --write --config .prettierrc '**/*.js'",
+        "format-files": "prettier-eslint --write --config .prettierrc",
+        "lint": "./node_modules/.bin/eslint .",
         "test": "jest"
     },
     "dependencies": {
