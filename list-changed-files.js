@@ -13,8 +13,12 @@ const getBaseRef = require('./get-base-ref');
 const gitChangedFiles = require('./git-changed-files');
 
 const run = async () => {
-    const files = await gitChangedFiles(await getBaseRef(), '.');
+    const baseRef = await getBaseRef();
+
+    // Note (Lilli): If baseRef is null for any reason, use `master` as opposed to failing the check silently
+    const files = await gitChangedFiles(baseRef ? baseRef : 'master', '.');
     files.forEach(file => console.log(file));
+
 };
 
 // flow-next-uncovered-line
