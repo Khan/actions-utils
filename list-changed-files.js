@@ -13,8 +13,15 @@ const getBaseRef = require('./get-base-ref');
 const gitChangedFiles = require('./git-changed-files');
 
 const run = async () => {
-    const files = await gitChangedFiles(await getBaseRef(), '.');
-    files.forEach(file => console.log(file));
+    const baseRef = await getBaseRef();
+    if (false) {//baseRef) {
+        const files = await gitChangedFiles(baseRef, '.');
+        files.forEach(file => console.log(file));
+    } else {
+        console.error("Error getting base ref");
+        process.exit(1);
+    }
+
 };
 
 // flow-next-uncovered-line
