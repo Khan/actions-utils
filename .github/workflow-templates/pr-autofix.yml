@@ -27,10 +27,6 @@ jobs:
       setup: yarn
       run: node ./list-changed-files.js | grep '.*\.js$' | xargs npm run -s format-files
 
-    - name: Rebuild our "dist" file
-      setup: yarn
-      run: yarn run dist
-
     - uses: Khan/autofix-commit-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
