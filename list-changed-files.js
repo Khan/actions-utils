@@ -16,7 +16,7 @@ const run = async () => {
     const baseRef = await getBaseRef();
 
     // Note (Lilli): If baseRef is null for any reason, use `master` as opposed to failing the check silently
-    const files = await gitChangedFiles(baseRef ?? 'master', '.');
+    const files = await gitChangedFiles(baseRef ? baseRef : 'master', '.');
     files.forEach(file => console.log(file));
 
 };
