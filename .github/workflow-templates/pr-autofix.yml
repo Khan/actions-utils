@@ -27,6 +27,6 @@ jobs:
       setup: yarn
       run: node ./list-changed-files.js | grep '.*\.js$' | xargs npm run -s format-files
 
-    - uses: Khan/autofix-commit-action@master
+    - uses: Khan/autofix-commit-action@main
       env:
         GITHUB_TOKEN: ${{ secrets.KHAN_ACTIONS_BOT_TOKEN }}
