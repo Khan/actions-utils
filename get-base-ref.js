@@ -27,7 +27,7 @@ const validateBaseRef = (baseRef /*:string*/, outputOnError /*: boolean*/ = fals
     if (checkRef(remote)) {
         return remote;
     }
-    
+
     // Otherwise return null (after optionally outputting helpful message) - no valid ref provided
     if (outputOnError) {
         console.error(`No valid base ref given. Found ${baseRef}, but ${baseRef} does not ` +
