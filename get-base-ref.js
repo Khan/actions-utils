@@ -92,18 +92,18 @@ const getBaseRef = (head /*:string*/ = 'HEAD') => {
 const cannedGithubErrorMessage = () => {
     const {GITHUB_BASE_REF} = process.env;
 
-    return GITHUB_BASE_REF ?
-        `No valid base ref given. Found ${GITHUB_BASE_REF}, but ${GITHUB_BASE_REF} does not ` +
-        `appear to be a valid branch. Perhaps this is coming from a GitHub pull-request that ` +
-        `you reparented, and the old parent no longer exists. This is a bug on GitHub; unless ` +
-        `push a new commit, the old base ref won't update. You can try solving this by: \n` +
-        `1. Merging the new base branch into your pull-request and re-running your checks.\n` +
-        `2. Rebasing the new base branch into your pull-request and re-running your checks.\n` +
-        `3. Creating and pushing an empty commit (e.g., \`$ git commit -am 'Trigger checks' && git push\`).` :
-        `No valid base ref given. The envar \`GITHUB_BASE_REF\` was null and no other base ref could ` +
-        `be determined.`;
-}
+    return GITHUB_BASE_REF
+        ? `No valid base ref given. Found \`${GITHUB_BASE_REF}\`, but \`${GITHUB_BASE_REF}\` does not ` +
+                `appear to be a valid branch. Perhaps this is coming from a GitHub pull-request that ` +
+                `you reparented, and the old parent no longer exists. This is a bug on GitHub; unless ` +
+                `push a new commit, the old base ref won't update. You can try solving this by: \n` +
+                `\t1. Merging the new base branch into your pull-request and re-running your checks.\n` +
+                `\t2. Rebasing the new base branch into your pull-request and re-running your checks.\n` +
+                `\t3. Creating and pushing an empty commit (e.g., \`$ git commit -am 'Trigger checks' && git push\`).`
+        : `No valid base ref given. The envar \`GITHUB_BASE_REF\` was null and no other base ref could ` +
+                `be determined.`;
+};
 
-module.exports = {getBaseRef, cannedGithubErrorMessage, validateBaseRef};
-//module.exports.validateBaseRef = validateBaseRef;
-//module.exports.cannedGithubErrorMessage = cannedGithubErrorMessage;
+module.exports = getBaseRef;
+module.exports.validateBaseRef = validateBaseRef;
+module.exports.cannedGithubErrorMessage = cannedGithubErrorMessage;
