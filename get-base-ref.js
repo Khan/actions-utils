@@ -104,6 +104,6 @@ const cannedGithubErrorMessage = () => {
         `be determined.`;
 }
 
-module.exports = getBaseRef;
-module.exports.validateBaseRef = validateBaseRef;
-module.exports.cannedGithubErrorMessage = cannedGithubErrorMessage;
+module.exports = {getBaseRef, cannedGithubErrorMessage, validateBaseRef};
+//module.exports.validateBaseRef = validateBaseRef;
+//module.exports.cannedGithubErrorMessage = cannedGithubErrorMessage;
