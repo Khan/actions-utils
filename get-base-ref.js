@@ -97,7 +97,7 @@ const cannedGithubErrorMessage = () => {
         ? `No valid base ref given. Found \`${GITHUB_BASE_REF}\`, but \`${GITHUB_BASE_REF}\` does not ` +
                 `appear to be a valid branch. Perhaps this is coming from a GitHub pull-request that ` +
                 `you reparented, and the old parent no longer exists. This is a bug on GitHub; unless ` +
-                `push a new commit, the old base ref won't update. You can try solving this by: \n` +
+                `you push a new commit, the old base ref won't update. You can try solving this by: \n` +
                 `\t1. Merging the new base branch into your pull-request and re-running your checks.\n` +
                 `\t2. Rebasing the new base branch into your pull-request and re-running your checks.\n` +
                 `\t3. Creating and pushing an empty commit (e.g., \`$ git commit -am 'Trigger checks' && git push\`).`
