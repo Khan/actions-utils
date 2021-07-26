@@ -782,20 +782,20 @@ acorn@^7.1.1:
   resolved "https://registry.npmjs.org/acorn/-/acorn-7.2.0.tgz"
   integrity sha512-apwXVmYVpQ34m/i71vrApRrRKCWQnZZF1+npOD0WV5xZFfwWOmKGQ2RWlfdy9vWITsenisM8M0Qeq8agcFHNiQ==
 
-actions-utils@Khan/actions-utils#v1.2.3:
-  version "1.2.3"
-  resolved "git+ssh://git@github.com/Khan/actions-utils.git#c546cd2cdd5751c2fcccea1769cd23f8ac85c6c4"
+"actions-utils@git+https://git@github.com/Khan/actions-utils#v1.2.5":
+  version "1.2.4"
+  resolved "git+https://git@github.com/Khan/actions-utils#025b6d5658291e3c73fbedfda6f83a17f48ae7db"
   dependencies:
     "@actions/github" "^2.1.1"
     chalk "^2.4.2"
     cli-highlight "^2.1.4"
     minimatch "^3.0.4"
 
-"actions-workflow-tools@git+https://git@github.com/Khan/actions-workflow-tools#v1.2.4":
+"actions-workflow-tools@git+https://git@github.com/Khan/actions-workflow-tools#v1.2.5":
   version "1.2.4"
-  resolved "git+https://git@github.com/Khan/actions-workflow-tools#8025c81da09417833e0ce9ed67cf18a33a9c295a"
+  resolved "git+https://git@github.com/Khan/actions-workflow-tools#a3e71a5eace39ef189da8d7c8c70afe96aefc2fa"
   dependencies:
-    actions-utils Khan/actions-utils#v1.2.3
+    actions-utils "git+https://git@github.com/Khan/actions-utils#v1.2.5"
     chalk "^2.4.2"
     download-git-repo "^3.0.2"
     js-yaml "^3.13.1"
