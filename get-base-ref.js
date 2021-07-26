@@ -96,7 +96,7 @@ const cannedGithubErrorMessage = () /*:string*/ => {
         `you reparented, and the old parent no longer exists. This is a bug on GitHub; unless ` +
         `you push a new commit, the old base ref won't update. You can try solving this by: \n` +
         `\t1. Merging the new base branch into your pull-request and re-running your checks.\n` +
-        `\t2. Rebasing the new base branch into your pull-request and re-running your checks.\n` +
+        `\t2. Rebasing your pull-request branch onto the new base branch and re-running your checks.\n` +
         `\t3. Creating and pushing an empty commit (e.g., \`$ git commit --allow-empty -m ` +
         `'Trigger checks' && git push\`).`
     : `No valid base ref given. The envar \`GITHUB_BASE_REF\` was null and no other base ref could ` +
