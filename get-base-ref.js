@@ -90,7 +90,7 @@ const getBaseRef = (head /*:string*/ = 'HEAD') => {
 // Multiple action microservices might encounter this, so give them a canned message to print.
 // Logging from inside this lib didn't seem to make it to the GitHub Actions console, so I'll
 // just pass the string back for them to log.
-const cannedGithubErrorMessage = () => {
+const cannedGithubErrorMessage = () /*:string*/ => {
     const {GITHUB_BASE_REF} = process.env;
 
     return GITHUB_BASE_REF
