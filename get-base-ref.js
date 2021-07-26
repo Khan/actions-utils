@@ -13,7 +13,7 @@
  *   TODO(jared): Consider using the github pull-request API (if we're online)
  *   to determine the base branch.
  */
-const { execSync, spawnSync } = require('child_process');
+const {execSync, spawnSync} = require('child_process');
 
 const checkRef = (ref) => spawnSync('git', ['rev-parse', ref]).status === 0;
 
@@ -27,18 +27,19 @@ const validateBaseRef = (baseRef /*:string*/) => {
     if (checkRef(remote)) {
         return remote;
     }
+
     // Otherwise return null - no valid ref provided
     return null;
 };
 
 const getBaseRef = (head /*:string*/ = 'HEAD') => {
-    const { GITHUB_BASE_REF } = process.env;
+    const {GITHUB_BASE_REF} = process.env;
     if (GITHUB_BASE_REF) {
         return validateBaseRef(GITHUB_BASE_REF);
     } else {
         let upstream = execSync(
             `git rev-parse --abbrev-ref '${head}@{upstream}'`,
-            { encoding: 'utf8' },
+            {encoding: 'utf8'},
         );
         upstream = upstream.trim();
 
@@ -54,7 +55,7 @@ const getBaseRef = (head /*:string*/ = 'HEAD') => {
             try {
                 const stdout = execSync(
                     `git branch --contains ${head}~${i} --format='%(refname)'`,
-                    { encoding: 'utf8' },
+                    {encoding: 'utf8'},
                 );
                 let lines = stdout.split('\n').filter(Boolean);
                 lines = lines.filter(
@@ -86,5 +87,25 @@ const getBaseRef = (head /*:string*/ = 'HEAD') => {
     }
 };
 
+// Multiple action microservices might encounter this, so give them a canned message to print.
+// Logging from inside this lib didn't seem to make it to the GitHub Actions console, so I'll
+// just pass the string back for them to log.
+const cannedGithubErrorMessage = () /*:string*/ => {
+    const {GITHUB_BASE_REF} = process.env;
+
+    return GITHUB_BASE_REF
+        ? `No valid base ref given. Found \`${GITHUB_BASE_REF}\`, but \`${GITHUB_BASE_REF}\` does not ` +
+                `appear to be a valid branch. Perhaps this is coming from a GitHub pull-request that ` +
+                `you reparented, and the old parent no longer exists. This is a bug on GitHub; unless ` +
+                `you push a new commit, the old base ref won't update. You can try solving this by: \n` +
+                `\t1. Merging the new base branch into your pull-request and re-running your checks.\n` +
+                `\t2. Rebasing the new base branch into your pull-request and re-running your checks.\n` +
+                `\t3. Creating and pushing an empty commit (e.g., \`$ git commit --allow-empty -m ` +
+                `'Trigger checks' && git push\`).`
+        : `No valid base ref given. The envar \`GITHUB_BASE_REF\` was null and no other base ref could ` +
+                `be determined.`;
+};
+
 module.exports = getBaseRef;
 module.exports.validateBaseRef = validateBaseRef;
+module.exports.cannedGithubErrorMessage = cannedGithubErrorMessage;

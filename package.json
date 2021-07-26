@@ -20,7 +20,7 @@
     "devDependencies": {
         "@babel/core": "^7.9.6",
         "@babel/register": "^7.9.0",
-        "actions-workflow-tools": "Khan/actions-workflow-tools#v1.2.4",
+        "actions-workflow-tools": "git+https://git@github.com/Khan/actions-workflow-tools#v1.2.5",
         "babel-eslint": "^10.1.0",
         "eslint": "^5.8.0",
         "eslint-config-prettier": "^6.11.0",
