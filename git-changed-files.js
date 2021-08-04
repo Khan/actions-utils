@@ -4,10 +4,10 @@ const path = require('path');
 const fs = require('fs');
 const minimatch = require('minimatch');
 
-const getIgnoredPatterns = (fileContents) => {
+const getIgnoredPatterns = fileContents => {
     return fileContents
         .split('\n')
-        .map((line) => {
+        .map(line => {
             if (line.startsWith('#')) {
                 return null;
             }
@@ -18,10 +18,7 @@ const getIgnoredPatterns = (fileContents) => {
                 return null;
             }
             const [pattern, ...attributes] = line.trim().split(' ');
-            if (
-                attributes.includes('binary') ||
-                attributes.includes('linguist-generated=true')
-            ) {
+            if (attributes.includes('binary') || attributes.includes('linguist-generated=true')) {
                 return pattern;
             }
             return null;
@@ -65,10 +62,7 @@ const isFileIgnored = (workingDirectory, file) => {
  * It also respects '.gitattributes', filtering out files that have been marked
  * as "binary" or "linguist-generated=true".
  */
-const gitChangedFiles = async (
-    base /*:string*/,
-    cwd /*:string*/,
-) /*: Promise<Array<string>>*/ => {
+const gitChangedFiles = async (base /*:string*/, cwd /*:string*/) /*: Promise<Array<string>>*/ => {
     cwd = path.resolve(cwd);
 
     // Github actions jobs can run the following steps to get a fully accurate
@@ -88,22 +82,23 @@ const gitChangedFiles = async (
     //       ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
     //
     if (process.env.ALL_CHANGED_FILES) {
-        const files = JSON.parse(process.env.ALL_CHANGED_FILES)
-        return files.filter(path => !isFileIgnored(cwd, path))
+        const files = JSON.parse(process.env.ALL_CHANGED_FILES);
+        return files.filter(path => !isFileIgnored(cwd, path));
     }
 
-    const { stdout } = await execProm(
-        `git diff --name-only ${base} --relative`,
-        { cwd, encoding: 'utf8', rejectOnError: true },
-    );
+    const {stdout} = await execProm(`git diff --name-only ${base} --relative`, {
+        cwd,
+        encoding: 'utf8',
+        rejectOnError: true,
+    });
     return (
         stdout
             .split('\n')
             .filter(Boolean)
-            .map((name) => path.join(cwd, name))
+            .map(name => path.join(cwd, name))
             // Filter out paths that were deleted
-            .filter((path) => fs.existsSync(path))
-            .filter((path) => !isFileIgnored(cwd, path))
+            .filter(path => fs.existsSync(path))
+            .filter(path => !isFileIgnored(cwd, path))
     );
 };
 
