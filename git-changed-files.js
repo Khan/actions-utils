@@ -88,8 +88,8 @@ const gitChangedFiles = async (
     //       ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
     //
     if (process.env.ALL_CHANGED_FILES) {
-        const files = JSON.parse(process.env.ALL_CHANGED_FILES)
-        return files.filter(path => !isFileIgnored(cwd, path))
+        const files = JSON.parse(process.env.ALL_CHANGED_FILES);
+        return files.filter((path) => !isFileIgnored(cwd, path));
     }
 
     const { stdout } = await execProm(
