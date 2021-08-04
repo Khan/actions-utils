@@ -182,7 +182,7 @@ const githubReport = async (
     }
 };
 
-const makeReport = (title /*: string*/, messages /*: Array<Message>*/) => {
+const makeReport = (title /*: string*/, messages /*: Array<Message>*/) /*: Promise<void> */ => {
     if (GITHUB_TOKEN) {
         return githubReport(title, GITHUB_TOKEN, messages);
     } else {

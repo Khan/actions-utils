@@ -17,7 +17,7 @@ const {execSync, spawnSync} = require('child_process');
 
 const checkRef = ref => spawnSync('git', ['rev-parse', ref]).status === 0;
 
-const validateBaseRef = (baseRef /*:string*/) => {
+const validateBaseRef = (baseRef /*:string*/) /*: string | null */ => {
     // It's locally accessible!
     if (checkRef(baseRef)) {
         return baseRef;
@@ -32,7 +32,7 @@ const validateBaseRef = (baseRef /*:string*/) => {
     return null;
 };
 
-const getBaseRef = (head /*:string*/ = 'HEAD') => {
+const getBaseRef = (head /*:string*/ = 'HEAD') /*: string | null */ => {
     const {GITHUB_BASE_REF} = process.env;
     if (GITHUB_BASE_REF) {
         return validateBaseRef(GITHUB_BASE_REF);

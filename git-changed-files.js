@@ -2,9 +2,10 @@
 const execProm = require('./exec-prom');
 const path = require('path');
 const fs = require('fs');
-const minimatch = require('minimatch');
+const minimatch = require('minimatch'); // flow-uncovered-line
 
-const getIgnoredPatterns = fileContents => {
+// ok
+const getIgnoredPatterns = (fileContents /*: string*/) => {
     return fileContents
         .split('\n')
         .map(line => {
@@ -26,8 +27,8 @@ const getIgnoredPatterns = fileContents => {
         .filter(Boolean);
 };
 
-const ignoredPatternsByDirectory = {};
-const isFileIgnored = (workingDirectory, file) => {
+const ignoredPatternsByDirectory /*: {[key: string]: Array<string>}*/ = {};
+const isFileIgnored = (workingDirectory /*: string*/, file /*: string*/) => {
     // If it's outside of the "working directory", we ignore it
     if (!file.startsWith(workingDirectory)) {
         return true;
@@ -46,6 +47,7 @@ const isFileIgnored = (workingDirectory, file) => {
             }
         }
         for (const pattern of ignoredPatternsByDirectory[dir]) {
+            // flow-next-uncovered-line
             if (minimatch(name, pattern)) {
                 return true;
             }
@@ -82,7 +84,7 @@ const gitChangedFiles = async (base /*:string*/, cwd /*:string*/) /*: Promise<Ar
     //       ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
     //
     if (process.env.ALL_CHANGED_FILES) {
-        const files = JSON.parse(process.env.ALL_CHANGED_FILES);
+        const files /*: Array<string> */ = JSON.parse(process.env.ALL_CHANGED_FILES); // flow-uncovered-line
         return files.filter(path => !isFileIgnored(cwd, path));
     }
 
