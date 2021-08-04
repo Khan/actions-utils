@@ -783,8 +783,8 @@ acorn@^7.1.1:
   integrity sha512-apwXVmYVpQ34m/i71vrApRrRKCWQnZZF1+npOD0WV5xZFfwWOmKGQ2RWlfdy9vWITsenisM8M0Qeq8agcFHNiQ==
 
 "actions-utils@git+https://git@github.com/Khan/actions-utils#v1.2.5":
-  version "1.2.4"
-  resolved "git+https://git@github.com/Khan/actions-utils#025b6d5658291e3c73fbedfda6f83a17f48ae7db"
+  version "1.2.5"
+  resolved "git+https://git@github.com/Khan/actions-utils#6d8556b72761a15ac97ab6d811acd53175bc36b2"
   dependencies:
     "@actions/github" "^2.1.1"
     chalk "^2.4.2"
