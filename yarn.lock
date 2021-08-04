@@ -784,14 +784,14 @@ acorn@^7.1.1:
 
 "actions-utils@git+https://git@github.com/Khan/actions-utils#v1.2.5":
   version "1.2.4"
-  resolved "git+https://git@github.com/Khan/actions-utils#6d8556b72761a15ac97ab6d811acd53175bc36b2"
+  resolved "git+https://git@github.com/Khan/actions-utils#025b6d5658291e3c73fbedfda6f83a17f48ae7db"
   dependencies:
     "@actions/github" "^2.1.1"
     chalk "^2.4.2"
     cli-highlight "^2.1.4"
     minimatch "^3.0.4"
 
-"actions-workflow-tools@git+https://git@github.com/Khan/actions-workflow-tools#a3e71a5eace39ef189da8d7c8c70afe96aefc2fa":
+"actions-workflow-tools@git+https://git@github.com/Khan/actions-workflow-tools#v1.2.5":
   version "1.2.4"
   resolved "git+https://git@github.com/Khan/actions-workflow-tools#a3e71a5eace39ef189da8d7c8c70afe96aefc2fa"
   dependencies:

@@ -7,21 +7,21 @@
  */
 
 // $FlowFixMe: shhhhh
-require('@babel/register'); // flow-uncovered-line
+require("@babel/register"); // flow-uncovered-line
 
-const getBaseRef = require('./get-base-ref');
-const gitChangedFiles = require('./git-changed-files');
+const getBaseRef = require("./get-base-ref");
+const gitChangedFiles = require("./git-changed-files");
 
 const run = async () => {
-    const baseRef = await getBaseRef();
+  const baseRef = await getBaseRef();
 
-    // Note (Lilli): If baseRef is null for any reason, use `master` as opposed to failing the check silently
-    const files = await gitChangedFiles(baseRef ? baseRef : 'master', '.');
-    files.forEach(file => console.log(file));
+  // Note (Lilli): If baseRef is null for any reason, use `master` as opposed to failing the check silently
+  const files = await gitChangedFiles(baseRef ? baseRef : "master", ".");
+  files.forEach((file) => console.log(file));
 };
 
 // flow-next-uncovered-line
-run().catch(err => {
-    console.error(err); // flow-uncovered-line
-    process.exit(1);
+run().catch((err) => {
+  console.error(err); // flow-uncovered-line
+  process.exit(1);
 });

@@ -11,7 +11,7 @@
  * the GITHUB_TOKEN env variable.
  */
 
-const {GITHUB_TOKEN, GITHUB_WORKSPACE} = process.env;
+const { GITHUB_TOKEN, GITHUB_WORKSPACE } = process.env;
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -39,7 +39,7 @@ const localReport = async (title /*:string*/, messages /*:Array<Message>*/) => {
     console.log(chalk.yellow(`[[ ${title} ]]`));
     console.log();
     const fileCache /*: {[key: string]: Array<string>}*/ = {};
-    const getFile = filePath => {
+    const getFile = (filePath) => {
         if (!fileCache[filePath]) {
             const ext = path.extname(filePath).slice(1);
             fileCache[filePath] = highlight(fs.readFileSync(filePath, 'utf8'), {
@@ -50,7 +50,7 @@ const localReport = async (title /*:string*/, messages /*:Array<Message>*/) => {
         return fileCache[filePath];
     };
     const byFile /*:{[key: string]: number}*/ = {};
-    messages.forEach(message => {
+    messages.forEach((message) => {
         const lines = getFile(message.path);
         const lineStart = Math.max(message.start.line - 3, 0);
         const indexStart = lineStart + 1;
@@ -62,7 +62,9 @@ const localReport = async (title /*:string*/, messages /*:Array<Message>*/) => {
         }
         console.error(
             ':error:',
-            chalk.cyan(`${message.path}:${message.start.line}:${message.start.column}`),
+            chalk.cyan(
+                `${message.path}:${message.start.line}:${message.start.column}`,
+            ),
         );
         console.error(message.message);
         console.error(
@@ -114,8 +116,8 @@ const githubReport = async (
     messages /*: Array<Message>*/,
 ) => {
     /* flow-uncovered-block */
-    const {GitHub, context} = require('@actions/github');
-    const {owner, repo} /*: {owner: string, repo: string}*/ = context.repo;
+    const { GitHub, context } = require('@actions/github');
+    const { owner, repo } /*: {owner: string, repo: string}*/ = context.repo;
     const client = new GitHub(token, {});
     const headSha = context.payload.pull_request.head.sha;
     const check = await client.checks.create({
@@ -142,7 +144,7 @@ const githubReport = async (
     }
     /* end flow-uncovered-block */
 
-    const annotations = messages.map(message => ({
+    const annotations = messages.map((message) => ({
         path: removeWorkspace(message.path),
         start_line: message.start.line,
         end_line: message.end.line,
@@ -151,7 +153,7 @@ const githubReport = async (
     }));
     let errorCount = 0;
     let warningCount = 0;
-    messages.forEach(message => {
+    messages.forEach((message) => {
         if (message.annotationLevel === 'failure') {
             errorCount += 1;
         } else {
