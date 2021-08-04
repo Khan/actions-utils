@@ -99,8 +99,8 @@ const gitChangedFiles = async (base /*:string*/, cwd /*:string*/) /*: Promise<Ar
             .filter(Boolean)
             .map(name => path.join(cwd, name))
             // Filter out paths that were deleted
-            .filter(path => fs.existsSync(path))
-            .filter(path => !isFileIgnored(cwd, path))
+            .filter((path /*: string*/) => fs.existsSync(path))
+            .filter((path /*: string*/) => !isFileIgnored(cwd, path))
     );
 };
 
