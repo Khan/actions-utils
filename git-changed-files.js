@@ -62,12 +62,36 @@ const isFileIgnored = (workingDirectory, file) => {
 /**
  * This lists the files that have changed when compared to `base` (a git ref),
  * limited to the files that are a descendent of `cwd`.
+ * It also respects '.gitattributes', filtering out files that have been marked
+ * as "binary" or "linguist-generated=true".
  */
 const gitChangedFiles = async (
     base /*:string*/,
     cwd /*:string*/,
 ) /*: Promise<Array<string>>*/ => {
     cwd = path.resolve(cwd);
+
+    // Github actions jobs can run the following steps to get a fully accurate
+    // changed files list. Otherwise, we fallback to a simple diff between the
+    // current and base branch, which might give false positives if the base
+    // is ahead of the current branch.
+    //
+    //   - name: Get All Changed Files
+    //     uses: jaredly/get-changed-files@absolute
+    //     id: changed
+    //     with:
+    //       format: 'json'
+    //       absolute: true
+    //
+    //   - uses: allenevans/set-env@v2.0.0
+    //     with:
+    //       ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
+    //
+    if (process.env.ALL_CHANGED_FILES) {
+        const files = JSON.parse(process.env.ALL_CHANGED_FILES)
+        return files.filter(path => !isFileIgnored(cwd, path))
+    }
+
     const { stdout } = await execProm(
         `git diff --name-only ${base} --relative`,
         { cwd, encoding: 'utf8', rejectOnError: true },
