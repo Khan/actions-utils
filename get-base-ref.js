@@ -15,7 +15,7 @@
  */
 const {execSync, spawnSync} = require('child_process');
 
-const checkRef = ref => spawnSync('git', ['rev-parse', ref]).status === 0;
+const checkRef = ref => spawnSync('git', ['rev-parse', ref, '--']).status === 0;
 
 const validateBaseRef = (baseRef /*:string*/) /*: string | null */ => {
     // It's locally accessible!
