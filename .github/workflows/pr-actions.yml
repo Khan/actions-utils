@@ -12,7 +12,7 @@ jobs:
       - run: yarn
         name: '▶️ Setup yarn: '
       - name: Run eslint
-        uses: Khan/eslint-action@main
+        uses: Khan/eslint-action@with-fix
         with:
           eslint-lib: ./node_modules/eslint
         env:
