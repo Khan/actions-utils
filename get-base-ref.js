@@ -15,6 +15,9 @@
  */
 const {execSync, spawnSync} = require('child_process');
 
+// NOTE: The final `--` tells git that `ref` is a branch name, and *not* a file or
+// directory name. Without it, git gets confused when there's a branch with the
+// same name as a directory.
 const checkRef = ref => spawnSync('git', ['rev-parse', ref, '--']).status === 0;
 
 const validateBaseRef = (baseRef /*:string*/) /*: string | null */ => {
