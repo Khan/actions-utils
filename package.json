@@ -1,6 +1,6 @@
 {
     "name": "actions-utils",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "main": "index.js",
     "repository": "git@github.com:Khan/actions-utils.git",
     "author": "Jared Forsyth <jared@jaredforsyth.com>",
