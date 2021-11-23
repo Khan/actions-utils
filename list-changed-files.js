@@ -13,9 +13,10 @@ const getBaseRef = require('./get-base-ref');
 const gitChangedFiles = require('./git-changed-files');
 
 const run = async () => {
-    const baseRef = await getBaseRef();
-
-    // Note (Lilli): If baseRef is null for any reason, use `master` as opposed to failing the check silently
+    // Note (Lilli): If baseRef is null for any reason, see if we were
+    // given a default in our args, otherwise use `master` as opposed to
+    // failing the check silently
+    const baseRef = (await getBaseRef()) || process.argv[2] || 'master';
     const files = await gitChangedFiles(baseRef ? baseRef : 'master', '.');
     files.forEach(file => console.log(file));
 };
