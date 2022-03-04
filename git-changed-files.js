@@ -3,6 +3,7 @@ const execProm = require('./exec-prom');
 const path = require('path');
 const fs = require('fs');
 const isFileIgnored = require('./is-file-ignored');
+const getChangedFilesFromEnv = require('./get-changed-files-from-env');
 
 /**
  * This lists the files that have changed when compared to `base` (a git ref),
@@ -13,9 +14,9 @@ const isFileIgnored = require('./is-file-ignored');
 const gitChangedFiles = async (base /*:string*/, cwd /*:string*/) /*: Promise<Array<string>>*/ => {
     cwd = path.resolve(cwd);
 
-    if (process.env.ALL_CHANGED_FILES) {
-        const files /*: Array<string> */ = JSON.parse(process.env.ALL_CHANGED_FILES); // flow-uncovered-line
-        return files.filter(path => !isFileIgnored(cwd, path));
+    const fromEnv = getChangedFilesFromEnv(cwd);
+    if (fromEnv) {
+        return fromEnv;
     }
 
     const {stdout} = await execProm(`git diff --name-only ${base} --relative`, {
