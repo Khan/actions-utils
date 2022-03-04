@@ -15,11 +15,10 @@ const {GITHUB_TOKEN, GITHUB_WORKSPACE} = process.env;
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-/* flow-uncovered-block */
 // TODO(jared): Strip this out somehow to make this lighter weight
+// eslint-disable-next-line flowtype-errors/uncovered
 const highlight /*: (string, {language: string, ignoreIllegals: boolean}) => string */ = require('cli-highlight')
     .highlight;
-/* end flow-uncovered-block */
 
 /*::
 export type Message = {
@@ -113,7 +112,7 @@ const githubReport = async (
     token /*: string*/,
     messages /*: Array<Message>*/,
 ) => {
-    /* flow-uncovered-block */
+    /* eslint-disable flowtype-errors/uncovered */
     const {GitHub, context} = require('@actions/github');
     const {owner, repo} /*: {owner: string, repo: string}*/ = context.repo;
     const client = new GitHub(token, {});
@@ -140,7 +139,7 @@ const githubReport = async (
             },
         });
     }
-    /* end flow-uncovered-block */
+    /* eslint-enable flowtype-errors/uncovered */
 
     const annotations = messages.map(message => ({
         path: removeWorkspace(message.path),
@@ -164,7 +163,7 @@ const githubReport = async (
     while (annotations.length > 0) {
         // take the first 50, removing them from the list
         const subset = annotations.splice(0, 50);
-        /* flow-uncovered-block */
+        /* eslint-disable flowtype-errors/uncovered */
         await client.checks.update({
             owner,
             repo,
@@ -178,7 +177,7 @@ const githubReport = async (
                 annotations: subset,
             },
         });
-        /* end flow-uncovered-block */
+        /* eslint-enable flowtype-errors/uncovered */
     }
 };
 

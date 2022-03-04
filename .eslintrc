@@ -7,11 +7,12 @@
     "parserOptions": {
         "sourceType": "module"
     },
-    "plugins": ["flowtype"],
+    "plugins": ["flowtype", "flowtype-errors"],
     "rules": {
         // The default rule wants to enforce // @flow, but we frequently have it
         // as part of the file's docstring.
         "flowtype/require-valid-file-annotation": [0, "always"],
+        "flowtype-errors/uncovered": 2,
         // ---------------------------------------
         // ES6 rules.
         "constructor-super": 2,
@@ -57,10 +58,7 @@
         "no-unexpected-multiline": 2,
         "no-unreachable": 2,
         // NOTE: If you change the options here, be sure to update eslintrc.flow also
-        "no-unused-expressions": [
-            2,
-            {"allowShortCircuit": true, "allowTernary": true}
-        ],
+        "no-unused-expressions": [2, {"allowShortCircuit": true, "allowTernary": true}],
         "no-unused-vars": [2, {"args": "none", "varsIgnorePattern": "^_*$"}],
         "no-useless-call": 2,
         "no-with": 2,
@@ -81,10 +79,7 @@
         "flowtype/no-dupe-keys": 2,
 
         // Use Flow's version of no-unused-expressions
-        "flowtype/no-unused-expressions": [
-            2,
-            {"allowShortCircuit": true, "allowTernary": true}
-        ],
+        "flowtype/no-unused-expressions": [2, {"allowShortCircuit": true, "allowTernary": true}],
 
         "flowtype/no-weak-types": 0, // allow 'any' for now
         // flow may still require parameter types in certain situations
