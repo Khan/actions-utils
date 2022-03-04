@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const minimatch = require('minimatch'); // flow-uncovered-line
 
-// ok
 const getIgnoredPatterns = (fileContents /*: string*/) => {
     return fileContents
         .split('\n')
