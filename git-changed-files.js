@@ -2,7 +2,7 @@
 const execProm = require('./exec-prom');
 const path = require('path');
 const fs = require('fs');
-const minimatch = require('minimatch'); // flow-uncovered-line
+const minimatch = require('minimatch'); // eslint-disable-line flowtype-errors/uncovered
 
 // ok
 const getIgnoredPatterns = (fileContents /*: string*/) => {
@@ -47,7 +47,7 @@ const isFileIgnored = (workingDirectory /*: string*/, file /*: string*/) => {
             }
         }
         for (const pattern of ignoredPatternsByDirectory[dir]) {
-            // flow-next-uncovered-line
+            // eslint-disable-next-line flowtype-errors/uncovered
             if (minimatch(name, pattern)) {
                 return true;
             }
@@ -84,7 +84,7 @@ const gitChangedFiles = async (base /*:string*/, cwd /*:string*/) /*: Promise<Ar
     //       ALL_CHANGED_FILES: '${{ steps.changed.outputs.added_modified }}'
     //
     if (process.env.ALL_CHANGED_FILES) {
-        const files /*: Array<string> */ = JSON.parse(process.env.ALL_CHANGED_FILES); // flow-uncovered-line
+        const files /*: Array<string> */ = JSON.parse(process.env.ALL_CHANGED_FILES); // eslint-disable-line flowtype-errors/uncovered
         return files.filter(path => !isFileIgnored(cwd, path));
     }
 

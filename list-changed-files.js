@@ -7,7 +7,7 @@
  */
 
 // $FlowFixMe: shhhhh
-require('@babel/register'); // flow-uncovered-line
+require('@babel/register'); // eslint-disable-line flowtype-errors/uncovered
 
 const getBaseRef = require('./get-base-ref');
 const gitChangedFiles = require('./git-changed-files');
@@ -21,8 +21,7 @@ const run = async () => {
     files.forEach(file => console.log(file));
 };
 
-// flow-next-uncovered-line
-run().catch(err => {
-    console.error(err); // flow-uncovered-line
+run().catch((err /*: mixed*/) => {
+    console.error(err);
     process.exit(1);
 });
