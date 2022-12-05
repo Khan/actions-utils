@@ -20,13 +20,13 @@ jobs:
 
           then
 
-          echo "name=changed::true" >> $GITHUB_STATE
+          echo "name=changed::true" >> $GITHUB_OUTPUT
 
           exit 0
 
           fi
 
-          echo "name=changed::false" >> $GITHUB_STATE
+          echo "name=changed::false" >> $GITHUB_OUTPUT
 
           exit 0
       - run: yarn
